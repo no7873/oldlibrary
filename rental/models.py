@@ -44,6 +44,9 @@ class Rentbook(models.Model): #대여책 목록
 
     def get_absolute_url(self):
         return reverse('rental:rentbook_detail', args=[self.id, self.slug])
+    #
+    # def get_absolute_url(self):
+    #     return reverse('rental:reserve', args=[self.id, self.slug])
 
 class Rental(models.Model):
     name = models.CharField(max_length=50)
@@ -64,8 +67,8 @@ class Rental(models.Model):
         return self.name
 
 class Reservation(models.Model):
-    custnum = models.IntegerField()
-    bookid = models.IntegerField()
+    custnum = models.ForeignKey('accounts.User', verbose_name="회원", on_delete=models.CASCADE)
+    bookid = models.ForeignKey('rental.Rentbook', verbose_name="대여도서", on_delete=models.CASCADE)
     applydate = models.DateTimeField(auto_now_add=True)
     exrent = models.DateField()
 
@@ -73,7 +76,7 @@ class Reservation(models.Model):
         ordering = ['-applydate']
 
     def __str__(self):
-        return self.custname
+        return str(self.custnum) + ' ' + str(self.bookid)
 
     def get_absolute_url(self):
         return reverse('rental:rentbook_detail', args=[self.bookid])
