@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img src="{{product.image.url}}" width="100%">
+        </div>
+        <div class="col">
+            <h1 class="display-6">{{product.name}}</h1>
+            <p>{{product.total}}/{{product.stock}}</p>
+            {% for r in reserve_count %}
+            <p>예약인원수: {{ r.total }}명</p>
+<!--            {% if r.total < product.total %}-->
+<!--            {% for c in rental_date %}-->
+<!--            <p>예상대여가능일자: {{c.expdate}}</p>-->
+<!--            {% endfor %}-->
+<!--            {% endif %}-->
+<!--            {% endfor %}-->
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
