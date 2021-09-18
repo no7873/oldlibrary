@@ -7,17 +7,17 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class RentProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'category', 'publisher', 'author', 'total', 'stock', 'available_display', 'available_order',
+    list_display = ['id', 'rtitle', 'slug', 'rcategory', 'rpublisher', 'rauthor', 'rtotal', 'rstock', 'available_display', 'available_order',
                     'created', 'updated']
-    prepopulated_fields = {'slug': ('name',)}
-    list_editable = ['total', 'stock', 'available_display', 'available_order']
+    prepopulated_fields = {'slug': ('rtitle',)}
+    list_editable = ['rtotal', 'rstock', 'available_display', 'available_order']
 
 class RentalAdmin(admin.ModelAdmin):
-    list_display = ['name', 'phone', 'address', 'bookid', 'title', 'publisher', 'author', 'rentdate', 'expdate', 'created']
-    list_editable = ['rentdate', 'expdate']
+    list_display = ['cust_num', 'phone', 'address', 'rbook_id', 'rent_date', 'due', 'created']
+    list_editable = ['rent_date', 'due']
 
 class ReserveAdimn(admin.ModelAdmin):
-    list_display = ['custnum', 'bookid', 'applydate', 'exrent']
+    list_display = ['cust_num', 'rbook_id', 'apply', 'exp']
 
 admin.site.register(Rentbook, RentProductAdmin)
 admin.site.register(Rentcategory, CategoryAdmin)
