@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.urls import reverse
 # Create your models here.
@@ -44,17 +46,20 @@ class Rentbook(models.Model): #대여책 목록
 
     def get_absolute_url(self):
         return reverse('rental:rentbook_detail', args=[self.id, self.slug])
-    #
-    # def get_absolute_url(self):
-    #     return reverse('rental:reserve', args=[self.id, self.slug])
 
 class Rental(models.Model):
+    # RENTAL_STATE = (
+    #     ('대여', '대여'),
+    #     ('반납예약', '반납예약'),
+    #     ('반납완료', '반납완료')
+    # )
     cust_num = models.ForeignKey('accounts.User', verbose_name="회원", on_delete=models.CASCADE)
     phone = models.CharField(max_length=200)
     address = models.CharField(max_length=500)
     rbook_id = models.ForeignKey('rental.Rentbook', verbose_name="대여도서", on_delete=models.CASCADE)
     rent_date = models.DateField()
     due = models.DateField()
+    rental_state = models.CharField(max_length=10, default='대여중')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -62,6 +67,16 @@ class Rental(models.Model):
 
     def __str__(self):
         return str(self.cust_num)
+
+    def overdue(self):
+        now = datetime.now().date()
+        overdue = '연체'
+        date = now > self.due
+        if date == True and self.rental_state=='대여중':
+            return overdue
+
+    def get_absolute_url(self):
+        return reverse('rental:rental_return', args=[self.id])
 
 class Reservation(models.Model):
     cust_num = models.ForeignKey('accounts.User', verbose_name="회원", on_delete=models.CASCADE)

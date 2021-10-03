@@ -1,0 +1,176 @@
+@charset "UTF-8";
+* {
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#logo {
+	margin-top: 100px;
+
+}
+
+li {
+	list-style: none;
+}
+body {
+	font-family: "명조";
+	color: #444444;
+}
+
+.clear {clear: both;}
+
+.search {
+	display: inline-block;
+	width: 500px;
+	height: 50px;
+	border: 6px solid #85796e;
+}
+.input_text {
+	width: calc( 100% - 14px );
+	border: 0;
+	font-weight: bold;
+	font-size: 23px;
+	outline: none;
+}
+.sch_smit {
+	width: 80px; height: 50px;
+	vertical-align: top;
+	background: #85796e;
+	color: white;
+	font-weight: bold;
+	border-radius: 1px;
+	cursor: pointer;
+	font-size: 20px;
+}
+.sch_smit:hover {
+	background: #85796e;
+}
+
+header {
+	height:130px;
+	/* border: solid 1px red; */
+}
+
+.box {
+	width: 1400px;
+	/* border: solid 1px blue; */
+
+}
+
+#content_box{
+		width: 1380px;
+
+}
+.main_logo{
+	font-size: 45px;
+    font-family: 'SBAggroB';
+	color: #85796e;
+	float: left;
+	padding-right: 50px;
+}
+
+.gum {
+	float: left;
+	padding: 20px;
+	padding-left: 25px;
+}
+
+.box2 {
+	margin: 0 auto;
+    width: 1400px;
+    height: 500px;
+
+}
+
+.box4 {
+	padding-top: 20px;
+    width: 800px;
+    height: 300px;
+    float: left;
+
+}
+
+.notice {
+	padding-bottom: 25px;
+}
+
+.notice_text {
+	width: 740px;
+	height: 200px;
+	border: solid #85796e;
+}
+
+.box5 {
+	padding-top: 20px;
+    width: 550px;
+    height: 300px;
+    float: right;
+}
+
+.title img {
+}
+
+.bestbook {
+	padding: 20px;
+}
+
+.bestbook span {
+	padding: 6px;
+}
+
+#search input {
+	height: 20px;
+	border: 0;
+}
+
+.main_logo img{
+    width: 140px;
+    height: 90px;
+}
+
+.main_menu {
+	float: right;
+	font-size: 21px;
+    text-align: center;
+    font-weight: bold;
+	color: #4e443b;
+	padding-top: 35px;
+}
+
+.main_menu li {
+	display: inline;
+	padding: 3px
+}
+
+footer {
+	height: 300px;
+	border-top: solid 1px #cccccc;
+	margin-top: 70px;
+}
+#footer_menu {
+	padding: 20px;
+}
+#footer_menu li {
+	display: inline;
+}
+.footers {
+	margin-top: 30px;
+	margin-left: 20px;
+	margin-right: 80px;
+	float: left;
+}
+.footers li {
+	margin-top: 8px;
+	font-size: 12px;
+	margin: 0 auto;
+}
+.footers span {
+	font-weight: bold;
+}

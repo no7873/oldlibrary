@@ -1,9 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function findAddr(){
+	new daum.Postcode({
+        oncomplete: function(data) {
+
+        	console.log(data);
+
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr=''
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('member_post').value = data.zonecode;
+
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+             document.getElementById("member_addr").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailadd").focus();
+        }
+    }).open();
+}
+</script>
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-4">
-            <h4>계정생성</h4>
+            <h4>회원가입</h4>
         </div>
     </div>
     <form method="post" class="post-form" action="{% url 'signup' %}">
@@ -35,16 +62,19 @@
                    value="{{ form.nickname.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
-            <label for="address">주소</label>
-            <input type="text" class="form-control" name="address" id="address"
-                   value="{{ form.address.value|default_if_none:'' }}">
+            <div>주소</div>
+            <input type="button" onclick="findAddr()" value="우편번호 찾기"><br>
+            <input id="member_post" class="form-control" type="text" placeholder="우편번호" readonly name="zipcode">
+            <input id="member_addr" class="form-control" type="text" placeholder="주소" name="address" readonly value="{{ form.address.value|default_if_none:'' }}">
+            <input id="detailadd" type="text" class="form-control" placeholder="상세주소" name="detailadd" value="{{ form.detailadd.value|default_if_none:'' }}">
         </div>
+
         <div class="form-group">
             <label for="phone">전화번호</label>
             <input type="text" class="form-control" name="phone" id="phone"
                    value="{{ form.phone.value|default_if_none:'' }}">
         </div>
-        <button type="submit" class="btn btn-primary">생성하기</button>
+        <button type="submit" class="btn btn-primary">가입하기</button>
     </form>
 </div>
 {% endblock %}

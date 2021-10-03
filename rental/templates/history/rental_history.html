@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>대여내역</h1>
+    <div class="row">
+        <div class="col">
+            <table border="1">
+                <th>대여번호</th>
+                <th>제목</th>
+                <th>대출일</th>
+                <th>반납예정</th>
+                <th>대출상태</th>
+                {% for rental in rentals %}
+                <tr>
+                    <td>{{ rental.id }}</td>
+                    <td>{{ rental.rbook_id }}</td>
+                    <td>{{ rental.rent_date }}</td>
+                    <td>{{ rental.due}}</td>
+                    {% if rental.overdue == "연체" %}
+                    <td>{{ rental.overdue }}</td>
+                    {% else %}
+                    <td>{{ rental.rental_state }}</td>
+                    {% endif %}
+                    {% if rental.rental_state != "반납완료" %}
+                    <td><a href="{% url 'rental:rental_return' id=rental.id pk=user.id %}" onclick="return confirm('반납하시겠습니까?');" class="btn btn-primary">반납</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+
+<!--            {{ user.username }}-->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
