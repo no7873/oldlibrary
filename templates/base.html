@@ -26,16 +26,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">도서검색</a>
-      </li>
-      <li class="nav-item active">
         <a class="nav-link" href="{% url 'rental:rentbook_all' %}">대여</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">구매</a>
+        <a class="nav-link" href="{% url 'shop:buybook_all' %}">구매</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">도서신청</a>
+        <a class="nav-link" href="http://naver.me/G8UAlN8Q">도서신청</a>
       </li>
         {% if user.is_authenticated %}
             <li class="nav-item">

@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from datetime import timedelta, date
+from django.utils import timezone
 # Create your models here.
 from accounts.models import User
 
@@ -25,15 +27,18 @@ class Rentbook(models.Model): #대여책 목록
     rcategory = models.ForeignKey(Rentcategory, on_delete=models.SET_NULL, null=True, related_name='products')
     rtitle = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, allow_unicode=True)
+
     rimage = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
     rpublisher = models.CharField(max_length=200)
     rauthor = models.CharField(max_length=200)
     rtotal = models.IntegerField()
     rstock = models.IntegerField()
+
     available_display = models.BooleanField('Display', default=True)
     available_order = models.BooleanField('Order', default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         ordering = ['-created']
@@ -47,6 +52,8 @@ class Rentbook(models.Model): #대여책 목록
     #
     # def get_absolute_url(self):
     #     return reverse('rental:reserve', args=[self.id, self.slug])
+
+
 
 class Rental(models.Model):
     cust_num = models.ForeignKey('accounts.User', verbose_name="회원", on_delete=models.CASCADE)
@@ -62,6 +69,7 @@ class Rental(models.Model):
 
     def __str__(self):
         return str(self.cust_num)
+
 
 class Reservation(models.Model):
     cust_num = models.ForeignKey('accounts.User', verbose_name="회원", on_delete=models.CASCADE)

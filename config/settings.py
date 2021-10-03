@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'accounts.apps.AccountsConfig',
     'shop',
+    'django.contrib.sites',
     'cart',
+    'order',
     'rental',
 ]
 
@@ -147,6 +149,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 CART_ID = 'cart_in_session'
+SITE_ID = 1
 
 IAMPORT_KEY = '9091638241496796'
 IAMPORT_SECRET = 'oy9gR8nQdlZTGQ96YA5Em1gKxpgzG3F4CPltXJka5k4LaeS8OXNaY4Vvub4afKfRAAlxjFIoZNaa12jP'

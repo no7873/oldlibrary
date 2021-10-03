@@ -21,7 +21,7 @@ def rentbook_in_category(request, category_slug=None):
 
     if category_slug:
         current_category = get_object_or_404(Rentcategory, slug=category_slug)
-        products = products.filter(category=current_category)
+        products = products.filter(rcategory=current_category)
 
     return render(request, 'shop/rent_list.html',
                   {'current_category': current_category, 'categories': categories, 'products': products})
@@ -88,3 +88,26 @@ def reserve(request, id):
 
 
     return render(request, 'shop/reserve.html', {'product':product})
+
+
+@login_required
+@require_POST
+def rental(request, id):
+    product = get_object_or_404(Rentbook, id=id)
+    user = request.user
+
+    if request.method == 'POST':
+        rental = Rental.objects.create(
+            rbook_id=product,
+            cust_num=user,
+            rent_date=date.today(),
+            due = date.today() + timedelta(days=14)
+        )
+        rental.save()
+        return render(request, 'shop/rental.html', {'product': product})
+
+    else:
+        return render(request, 'shop/rent_list.html', {'product': product})
+
+
+

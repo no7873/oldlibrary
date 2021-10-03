@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-2"> <!--col-2 : 2조각-->
         <div class="list-group">
-            <a href="/rental/rentbook_all" class="list-group-item {% if not current_category%} active {% endif %}">All</a>
+            <a href="/rental/rentbook_all" class="list-group-item {% if not current_category%} active {% endif %}">카테고리</a>
             {%for c in categories %}
             <a href="{{c.get_absolute_url}}" class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
             {% endfor %}
@@ -15,7 +15,7 @@
 
     <div class="col">
         <div class="alert alert-info" role="alert">
-            {% if current_category %}{{current_category.name}}{% else %} All Products {% endif %}
+            {% if current_category %}{{current_category.name}}{% else %} 대여도서 전체보기 {% endif %}
         </div>
         <div class="row">
             {% for product in products %}
@@ -24,7 +24,7 @@
                     <img class="card-img-top" src="{{product.rimage.url}}" alt="Product image">
                     <div class="card-body">
                         <h5 class="card-title">{{product.rtitle}}</h5>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Detail</a>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary">상세보기</a>
                     </div>
                 </div>
             </div>

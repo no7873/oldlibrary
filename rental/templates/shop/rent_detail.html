@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Product Detail{% endblock %}
+{% block title %}Rentbook Detail{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -9,14 +9,23 @@
         </div>
         <div class="col">
             <h1 class="display-6">{{product.rtitle}}</h1>
-            <p>{{product.rtotal}}/{{product.rstock}}</p>
+            <p>{{product.rstock}}/{{product.rtotal}}</p>
 <!--         if 대여-->
             {% if product.rstock > 0 %}
-            <a href="#" class="btn btn-primary btn-sm">대여</a>
+            <form action="{% url 'cart:product_add' product.id %}" method="post">
+                {{add_to_cart}}
+                {% csrf_token %}
+            <input type="submit" class="btn btn-primary btn-sm" value="대여 장바구니">
+            </form>
+            <form action="{% url 'rental:rental' product.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary btn-sm" value="바로대여">
+            </form>
 <!--         else 예약-->
             {% else %}
             <p>예약인원수: {{ reserve_count.total }}명</p>
 <!--         대여예상날짜-->
+
 
             {% if user_count.total > 0 %}
             <div class="row" style="margin:20px auto;">
