@@ -13,7 +13,7 @@ class RentProductAdmin(admin.ModelAdmin):
     list_editable = ['rtotal', 'rstock', 'available_display', 'available_order']
 
 class RentalAdmin(admin.ModelAdmin):
-    list_display = ['cust_num', 'phone', 'address', 'rbook_id', 'rent_date', 'due', 'created']
+    list_display = ['cust_num', 'phone', 'address', 'rbook_id', 'rent_date', 'due', 'rental_state', 'overdue', 'created']
     list_editable = ['rent_date', 'due']
 
 class ReserveAdimn(admin.ModelAdmin):

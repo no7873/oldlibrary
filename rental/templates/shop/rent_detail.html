@@ -45,14 +45,11 @@
             {% endif %}
             <form action="{% url 'rental:reserve' product.id %}" method="post">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-primary btn-sm" value="예약">
+                <input type="submit" onclick="return confirm('예약하시겠습니까?');" class="btn btn-primary btn-sm" value="예약">
             </form>
             {% endif %}
             {% endif %}
-
-
         </div>
-
     </div>
 </div>
 

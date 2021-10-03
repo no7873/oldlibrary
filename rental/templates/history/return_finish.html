@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+<p>반납이 완료 되었습니다.</p>
+<a href="{% url 'rental:rental_history' pk=user.id %}" class="btn btn-primary">이전으로</a>
+{% endblock %}

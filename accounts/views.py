@@ -14,6 +14,7 @@ def signup(request):
                 email=request.POST['email'],
                 nickname=request.POST['nickname'],
                 address=request.POST['address'],
+                detailadd=request.POST['detailadd'],
                 phone=request.POST['phone'],
             )
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')

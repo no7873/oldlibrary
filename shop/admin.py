@@ -12,5 +12,6 @@ class BuyProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('btitle',)}
     list_editable =['price', 'condition', 'btotal', 'bstock', 'available_display', 'available_order']
 
+
 admin.site.register(Buycategory, CategoryAdmin)
 admin.site.register(Buybook, BuyProductAdmin)

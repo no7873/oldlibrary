@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import *
 
 app_name = 'rental'
@@ -9,4 +10,6 @@ urlpatterns = [
     path('<int:id>/<product_slug>/', rentbook_detail, name='rentbook_detail'),
     path('reserve/<int:id>/', reserve, name='reserve'),
     path('rental/<int:id>', rental, name='rental'),
+    path('rental_history/<int:pk>/', rental_history, name='rental_history'),
+    path('rental_history/<int:pk>/<int:id>', rental_return, name='rental_return'),
 ]
