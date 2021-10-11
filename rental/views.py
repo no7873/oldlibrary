@@ -15,7 +15,7 @@ from django.views.generic import FormView, DetailView, TemplateView
 from datetime import timedelta
 from datetime import datetime
 
-
+from shop.models import Buybook
 from .models import *
 # Create your views here.
 def rentbook_in_category(request, category_slug=None):
@@ -23,14 +23,9 @@ def rentbook_in_category(request, category_slug=None):
     categories = Rentcategory.objects.all()
     products = Rentbook.objects.filter(available_display=True)
 
-    search_key = request.GET.get('search_key')
     if category_slug:
         current_category = get_object_or_404(Rentcategory, slug=category_slug)
         products = products.filter(rcategory=current_category)
-
-        if search_key:
-            current_category = get_object_or_404(Rentcategory, slug=category_slug)
-            products = products.filter(Q(category=current_category)&Q(rtitle__icontains=search_key))
 
     return render(request, 'shop/rent_list.html',
                   {'current_category': current_category, 'categories': categories, 'products': products})
@@ -138,4 +133,5 @@ def rental_return(request, id, pk):
     # context={'user':user, 'rental':rental}
     # return HttpResponse(json.dumps(context), content_type="application/json")
     return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
+
 

@@ -25,10 +25,11 @@
                     <img src="{% static 'images/oldlibrary.PNG' %}" style="vertical-align: middle;">
                     고서관
                 </div>
-                <form action="" method="get">
+                <form action="{% url 'search:searchResult' %}" method="get">
+                    {% csrf_token %}
                     <div class="gum">
                     <div class='search'>
-                    <input type='text' class='input_text' name="search_key" value="{{ search_key }}">
+                    <input type='search' class='input_text' name="q">
                     </div>
                     <button type='submit' class='sch_smit' value="Search">검색</button>
                 </div>

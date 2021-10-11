@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Category Page{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="row">
+            {% if query != "" %}
+            <strong>"{{ query }}" 검색결과</strong>
+            <table class="table" style="width:100%">
+            {% for product in rental_products %}
+                <tbody>
+                <tr>
+                    <td><img src="{{product.rimage.url}}" alt="Product image" height="300px" width="200px"></td>
+                    <td>{{product.rtitle}}</td>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary" style="width:200px">대여하기</a><br><br>
+                        {% for buy in buy_products %}
+                        {% if product.rtitle == buy.btitle and product.rpublisher == buy.bpublisher and product.rauthor == buy.bauthor %}
+                        <a href="{{ buy.get_absolute_url }}" class="btn btn-primary" style="width:200px">구매하기</a>
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for buys in buy_product %}
+                <tr>
+                    <td><img src="{{buys.image.url}}" alt="Product image" height="300px" width="200px"></td>
+                    <td>{{buys.btitle}}</td>
+                    <td><a href="{{ buys.get_absolute_url }}" class="btn btn-primary" style="width:200px">구매하기</a></td>
+                </tr>
+                </tbody>
+            {% endfor %}
+            </table>
+
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% else %}
+            <p>검색어를 입력해주세요.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -32,6 +32,7 @@ Checkout
                 {{item.quantity}}X{{item.product.name}}
                 <span>{{item.total_price}}</span>
             </li>
+            {% endfor %}
         </ul>
         <div class="alert alert-success" role="alert">Total: {{cart.get_total_price|floatformat:"2"}}</div>
 
