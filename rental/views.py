@@ -112,11 +112,13 @@ def rental(request, id):
     user = request.user
 
     if request.method == 'POST':
+        book = get_object_or_404(Rentbook, id=id)
+        book.rent_stock(request.user)
         rental = Rental.objects.create(
             rbook_id=product,
             cust_num=user,
             rent_date=date.today(),
-            due = date.today() + timedelta(days=14)
+            due = date.today() + timedelta(days=14),
         )
         rental.save()
         return render(request, 'shop/rental.html', {'product': product})
@@ -130,6 +132,11 @@ def rental_return(request, id, pk):
     user = User.objects.get(pk=pk)
     rental.rental_state='반납완료'
     rental.save()
+
+
+    if request.method == 'POST':
+        book = get_object_or_404(Rentbook, pk=pk)
+        book.return_book()
     # context={'user':user, 'rental':rental}
     # return HttpResponse(json.dumps(context), content_type="application/json")
     return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})

@@ -17,11 +17,11 @@
                 {% csrf_token %}
             <input type="submit" class="btn btn-primary btn-sm" value="대여 장바구니">
             </form>
-            <form action="{% url 'rental:rental' product.pk %}" method="post">
+            <form action="{% url 'rental:rental' product.id %}" method="post">
                 {% csrf_token %}
                 <input type="submit" class="btn btn-primary btn-sm" value="바로대여">
             </form>
-<!--         else 예약-->
+    <!--         else 예약-->
             {% else %}
             <p>예약인원수: {{ reserve_count.total }}명</p>
 <!--         대여예상날짜-->

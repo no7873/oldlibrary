@@ -49,9 +49,22 @@ class Rentbook(models.Model): #대여책 목록
     def __str__(self):
         return self.rtitle
 
+    def rent_stock(self, user):
+        ## rtitle과 rbook_id가 같을 시 stock-1
+        if Rentbook.rtitle == Rental.rbook_id is True:
+            return self.rstock - 1
+        self.rstock = self.rstock - 1
+        self.save()
+
+    def return_stock(self, user):
+        ## rtitle과 rbook_id가 같을 시 stock-1
+        if Rentbook.rtitle == Rental.rbook_id is True:
+            return self.rstock + 1
+        self.rstock = self.rstock + 1
+        self.save()
+
     def get_absolute_url(self):
         return reverse('rental:rentbook_detail', args=[self.id, self.slug])
-
 
 
 class Rental(models.Model):
@@ -81,6 +94,7 @@ class Rental(models.Model):
         date = now > self.due
         if date == True and self.rental_state=='대여중':
             return overdue
+
 
     def get_absolute_url(self):
         return reverse('rental:rental_return', args=[self.id])
