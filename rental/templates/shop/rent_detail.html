@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Rentbook Detail{% endblock %}
 {% block content %}
-
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -10,6 +9,15 @@
         <div class="col">
             <h1 class="display-6">{{product.rtitle}}</h1>
             <p>{{product.rstock}}/{{product.rtotal}}</p>
+            {% if rental_user.total > 1 and rental_state.rental_state == '대여중' %}
+            <div class="row" style="margin:20px auto;">
+            <div class="col-sm-12">
+            <div class="alert alert-danger">
+            <strong>이미 대여한 도서입니다.</strong>
+            </div>
+            </div>
+            </div>
+            {% else %}
 <!--         if 대여-->
             {% if product.rstock > 0 %}
             <form action="{% url 'cart:product_add' product.id %}" method="post">
@@ -47,6 +55,7 @@
                 {% csrf_token %}
                 <input type="submit" onclick="return confirm('예약하시겠습니까?');" class="btn btn-primary btn-sm" value="예약">
             </form>
+            {% endif %}
             {% endif %}
             {% endif %}
         </div>

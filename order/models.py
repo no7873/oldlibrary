@@ -2,18 +2,21 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
+from accounts.models import User
+
 
 class Order(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     address = models.CharField(max_length=200)
+    detailadd = models.CharField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=100)
     point = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
 
-    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    # discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
 
     class Meta:
         ordering = ['-created']
@@ -26,7 +29,7 @@ class Order(models.Model):
 
     def get_total_price(self):
         total_product = self.get_total_product()
-        return total_product - self.discount
+        return total_product - self.point
 
 from shop.models import Buybook
 class OrderItem(models.Model):

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+
+from rental.models import Rentbook
 from .models import *
 from cart.cart import Cart
 from .forms import *
@@ -9,9 +11,13 @@ def order_create(request):
         form = OrderCreateForm(request.POST) # 입력받은 정보를 넣어서 form 생성
         if form.is_valid():
             order = form.save()
+            order.save()
 
             for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+                order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+                buybook = Buybook.objects.get(id=order_item.product)
+                buybook.bstock = buybook.bstock - order_item.quantity
+                buybook.save()
 
             cart.clear()
 
@@ -25,7 +31,13 @@ def order_create(request):
 def order_complete(request):
     order_id = request.GET.get('order_id')
     order = Order.objects.get(id=order_id)
+    # products = OrderItem.objects.filter(order_id=order_id)
+    # for order_product in products:
+    #     book = Buybook.objects.filter(id=order_product.product_id)
+    #     stock = book.bstock - int(order_product.quantity)
+
     return render(request, 'order/created.html', {'order':order})
+
 
 from django.views.generic.base import View
 from django.http import JsonResponse
@@ -57,7 +69,6 @@ class OrderCreateAjaxView(View):
 
         else:
             return JsonResponse({}, status=401)
-
 
 class OrderCheckoutAjaxView(View):
     def post(self, request, *args, **kwargs):

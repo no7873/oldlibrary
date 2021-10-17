@@ -41,6 +41,9 @@ def rentbook_detail(request, id, product_slug=None):
         global user_count, rental_date, reserve_date
         user_count = Reservation.objects.filter(cust_num=user).values('cust_num').aggregate(
             total=Coalesce(Count('cust_num'), 0))
+        rental_user = Rental.objects.filter(cust_num=user, rbook_id=id).values('cust_num').aggregate(total=Coalesce(Count('cust_num'), 0))
+        rental_state = Rental.objects.filter(cust_num=user, rbook_id=id).values('rental_state').first()
+
         rc = reserve_count.get('total')  # 예약총권수
         # print(rc)
         rtc = rental_count.get('total')  # 대여총권수
@@ -54,7 +57,7 @@ def rentbook_detail(request, id, product_slug=None):
 
         else:  # 예약 인원수가 대여 인원수 보다 많은 겨우
             reserve_date = reserve_date.last()
-        return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date, 'user_count':user_count })
+        return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date, 'user_count':user_count, 'rental_user':rental_user, 'rental_state':rental_state })
     else:
         return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date })
 

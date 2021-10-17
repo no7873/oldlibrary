@@ -1,6 +1,6 @@
 $(function (){
     var IMP = window.IMP;
-    IMP.init('imp35150271');
+    IMP.init('imp02773415');
 
     $('.order-form').on('submit', function (e){
         var amount = parseFloat($('.order-form input[name="amount"]').val().replace(',', ''));
@@ -8,10 +8,10 @@ $(function (){
 
         var order_id = AjaxCreateOrder(e);
 
-        if (order_id==false) {
-            alert('주문 생성 실패\n다시 시도해주세요.')
-            return false;
-        }
+//        if (order_id==false) {
+//            alert('주문 생성 실패\n다시 시도해주세요.')
+//            return false;
+//        }
 
         var merchant_id = AjaxStoreTransaction(e, order_id, amount, type)
 
@@ -19,7 +19,7 @@ $(function (){
             IMP.request_pay({
                 merchant_uid: merchant_id,
                 name: 'E-Shop product',
-                buyer_name:$('input[name="first_name"]').val()+" "+$('input[name="last_name"]').val(),
+                buyer_name:$('input[name="name"]').val(),
                 buyer_email:$('input[name="email"]').val(),
                 amount: amount
                 }, function (rsp) {
@@ -68,7 +68,7 @@ function AjaxCreateOrder(e){
             alert("로그인 해주세요.")
         }
         else{
-            alert("문제가 발생했습니다. 다시 시도해주세요.")
+            alert("주문정보를 입력해주세요.")
         }
     });
 
@@ -105,7 +105,7 @@ function AjaxStoreTransaction(e, order_id, amount, type) {
             alert("로그인 해주세요.")
         }
         else{
-            alert("문제가 발생했습니다. 다시 시도해주세요.")
+            alert("주문정보를 입력해주세요.")
         }
     });
     return merchant_id;
@@ -141,7 +141,7 @@ function ImpTransaction(e, order_id, merchant_id, imp_id, amount) {
             alert("로그인 해주세요.")
         }
         else{
-            alert("문제가 발생했습니다. 다시 시도해주세요.")
+            alert("주문정보를 입력해주세요.")
         }
     });
 }
