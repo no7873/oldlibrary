@@ -56,8 +56,8 @@ class Rentbook(models.Model): #대여책 목록
         self.rstock = self.rstock - 1
         self.save()
 
-    def return_stock(self, user):
-        ## rtitle과 rbook_id가 같을 시 stock-1
+    def return_stock(self):
+        ## rtitle과 rbook_id가 같을 시 stock+1
         if Rentbook.rtitle == Rental.rbook_id is True:
             return self.rstock + 1
         self.rstock = self.rstock + 1
