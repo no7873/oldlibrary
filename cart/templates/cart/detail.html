@@ -4,7 +4,7 @@
 {% block title %}
     myCart
 {% endblock %}
-
+d
 {% block content %}
     <table class="table table-striped">
         <thead>
@@ -39,7 +39,6 @@
 
             <td>
                 <a>구매</a>
-
             </td>
 
             <td>
@@ -76,7 +75,7 @@
 
 
     <p class="text-right">
-        <a href="{% url 'shop:buybook_all' %}" class="btn btn-secondary">쇼핑 계속하기</a>
+        <a href="{% url 'shop:buybook_all' %}" class="btn btn-secondary">쇼핑 계속하기</a> <!--url 메인페이지로 다시 걸기-->
         <a href="{% url 'orders:order_create' %}" class="btn btn-primary">구매하기</a>
     </p>
 

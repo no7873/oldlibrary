@@ -8,7 +8,7 @@
             <img src="{{product.image.url}}" width="100%">
         </div>
         <div class="col">
-            <h1 class="display-6">{{product.btitle}}</h1>
+            <h2 class="display-6">{{product.btitle}}</h2>
             <p><span class="badge badge-secondary">가격</span>
             {% load humanize %}
                 &#8361;{{product.price | floatformat:'0' | intcomma}}</p>
@@ -17,9 +17,11 @@
                 {% csrf_token %}
             <input type="submit" class="btn btn-primary btn-sm" value="구매 장바구니">
             </form>
+
             <a href="#" class="btn btn-primary">바로구매</a>
-            <h5><span class="badge badge-secondary">줄거리</span>{{product.bcontent|linebreaks}}</h5>
-            <h4>상태 : {{product.condition}} </h4>
+            <h6><span class="badge badge-secondary">줄거리</span>{{product.bcontent|linebreaks}}</h6>
+            <h5>상태 : {{product.condition}} </h5>
+
         </div>
     </div>
 </div>

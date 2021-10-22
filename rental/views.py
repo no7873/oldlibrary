@@ -30,6 +30,7 @@ def rentbook_in_category(request, category_slug=None):
     return render(request, 'shop/rent_list.html',
                   {'current_category': current_category, 'categories': categories, 'products': products})
 
+
 def rentbook_detail(request, id, product_slug=None):
     product = get_object_or_404(Rentbook, id=id, slug=product_slug)
     # reserve = get_object_or_404(Reservation, bookid=id)
@@ -55,7 +56,7 @@ def rentbook_detail(request, id, product_slug=None):
         if rtc > rc:  # 대여 인원수가 예약 인원수 보다 많은 경우
             rental_date = rental_date[rc:rcp]
 
-        else:  # 예약 인원수가 대여 인원수 보다 많은 겨우
+        else:  # 예약 인원수가 대여 인원수 보다 많은 경우
             reserve_date = reserve_date.last()
         return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date, 'user_count':user_count, 'rental_user':rental_user, 'rental_state':rental_state })
     else:
@@ -132,17 +133,21 @@ def rental(request, id):
 
 def rental_return(request, id, pk):
     rental = get_object_or_404(Rental, id=id)
-    user = User.objects.get(pk=pk)
+    book = get_object_or_404(Rentbook, pk=pk)
+    user = request.user          #User.objects.get(pk=pk)
+    rental.rental_state = '반납완료'
 
-    if request.method == 'GET':
-        book = get_object_or_404(Rentbook, pk=pk)
-        book.return_stock()
-        rental.rental_state = '반납완료'
+    book.return_stock()
     rental.save()
+
+    # if request.method == 'GET':
+    #     book.rstock = book.rstock + 1
+
+    return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
+
 
 
     # context={'user':user, 'rental':rental}
     # return HttpResponse(json.dumps(context), content_type="application/json")
-    return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
 
 

@@ -9,7 +9,7 @@
         <div class="col">
             <h1 class="display-6">{{product.rtitle}}</h1>
             <p>{{product.rstock}}/{{product.rtotal}}</p>
-            {% if rental_user.total > 1 and rental_state.rental_state == '대여중' %}
+            {% if rental_state.rental_state == '대여중' %} <!-- rental_user.total > 0 and -->
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
             <div class="alert alert-danger">
@@ -20,7 +20,7 @@
             {% else %}
 <!--         if 대여-->
             {% if product.rstock > 0 %}
-            <form action="{% url 'cart:product_add' product.id %}" method="post">
+            <form action="{% url 'cart2:product_add' product.id %}" method="post">
                 {{add_to_cart}}
                 {% csrf_token %}
             <input type="submit" class="btn btn-primary btn-sm" value="대여 장바구니">
