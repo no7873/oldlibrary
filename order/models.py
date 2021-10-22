@@ -29,7 +29,7 @@ class Order(models.Model):
 
     def get_total_price(self):
         total_product = self.get_total_product()
-        return total_product - self.point
+        return total_product
 
 from shop.models import Buybook
 class OrderItem(models.Model):

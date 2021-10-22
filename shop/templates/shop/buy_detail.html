@@ -17,7 +17,6 @@
                 {% csrf_token %}
             <input type="submit" class="btn btn-primary btn-sm" value="구매 장바구니">
             </form>
-            <a href="#" class="btn btn-primary">바로구매</a>
             <h5><span class="badge badge-secondary">줄거리</span>{{product.bcontent|linebreaks}}</h5>
             <h4>상태 : {{product.condition}} </h4>
         </div>

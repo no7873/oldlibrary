@@ -48,6 +48,7 @@ function findAddr(){
 {% endblock %}
 
 {% block content %}
+<div class="container">
 <div class="row">
     <div class="col">
         <div class="alert alert-info" role="alert">
@@ -60,12 +61,12 @@ function findAddr(){
                 <span>{{item.total_price}}</span>
             </li>
             {% endfor %}
-            {% for buy in product %}
-            <li class="list-group-item">
-                1X{{buy.btitle}}
-                <span>{{buy.price}}</span>
-            </li>
-            {% endfor %}
+<!--            {% for buy in product %}-->
+<!--            <li class="list-group-item">-->
+<!--                1X{{buy.btitle}}-->
+<!--                <span>{{buy.price}}</span>-->
+<!--            </li>-->
+<!--            {% endfor %}-->
         </ul>
         <div class="alert alert-success" role="alert">Total: {{cart.get_total_price|floatformat:"2"}}</div>
 
@@ -105,5 +106,6 @@ function findAddr(){
             <input type="submit" class="btn btn-primary float-right" value="Place Order">
         </form>
     </div>
+</div>
 </div>
 {% endblock %}

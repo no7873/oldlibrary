@@ -9,7 +9,7 @@
         <div class="col">
             <h1 class="display-6">{{product.rtitle}}</h1>
             <p>{{product.rstock}}/{{product.rtotal}}</p>
-            {% if rental_user.total > 1 and rental_state.rental_state == '대여중' %}
+            {% if rental_state.rental_state == '대여중' %}
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
             <div class="alert alert-danger">
