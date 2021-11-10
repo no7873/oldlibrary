@@ -13,4 +13,3 @@ urlpatterns = [
     path('rental_history/<int:pk>/', rental_history, name='rental_history'),
     path('rental_history/<int:pk>/<int:id>', rental_return, name='rental_return'),
 ]
-#rental_history/<int:pk>/<int:id>

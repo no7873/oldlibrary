@@ -133,21 +133,18 @@ def rental(request, id):
 
 def rental_return(request, id, pk):
     rental = get_object_or_404(Rental, id=id)
-    book = get_object_or_404(Rentbook, pk=pk)
-    user = request.user          #User.objects.get(pk=pk)
-    rental.rental_state = '반납완료'
+    rentalid = Rental.objects.filter(id=id).values('rbook_id')
+    print(rental)
+    user = User.objects.get(pk=pk)
 
-    book.return_stock()
+    if request.method == 'GET':
+        book = get_object_or_404(Rentbook, id__in=rentalid)
+        book.rstock += 1
+        rental.rental_state = '반납완료'
+    book.save()
     rental.save()
-
-    # if request.method == 'GET':
-    #     book.rstock = book.rstock + 1
-
-    return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
-
-
-
     # context={'user':user, 'rental':rental}
     # return HttpResponse(json.dumps(context), content_type="application/json")
+    return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
 
 

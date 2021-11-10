@@ -7,19 +7,13 @@ from .forms import *
 
 def order_create(request):
     cart = Cart(request)
+    # product = Buybook.objects.get(id=id)
     if request.method == 'POST': #입력받은 정보를 후처리 하는 부분
         form = OrderCreateForm(request.POST) # 입력받은 정보를 넣어서 form 생성
+
         if form.is_valid():
             order = form.save()
             order.save()
-
-            for item in cart:
-                order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
-                buybook = Buybook.objects.get(id=order_item.product)
-                buybook.bstock = buybook.bstock - order_item.quantity
-                buybook.save()
-
-            cart.clear()
 
             return render(request, 'order/created.html', {'order':order})
 
@@ -31,10 +25,15 @@ def order_create(request):
 def order_complete(request):
     order_id = request.GET.get('order_id')
     order = Order.objects.get(id=order_id)
-    # products = OrderItem.objects.filter(order_id=order_id)
-    # for order_product in products:
-    #     book = Buybook.objects.filter(id=order_product.product_id)
-    #     stock = book.bstock - int(order_product.quantity)
+    cart = Cart(request)
+    for item in cart:
+        order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'],
+                                              quantity=item['quantity'])
+        buybook = Buybook.objects.get(id=order_item.product_id)
+        buybook.bstock = buybook.bstock - order_item.quantity
+        buybook.save()
+
+    cart.clear()
 
     return render(request, 'order/created.html', {'order':order})
 
@@ -48,7 +47,7 @@ class OrderCreateAjaxView(View):
         if not request.user.is_authenticated:
             return JsonResponse({"authenticated":False}, status=403)
 
-        cart = Cart(request)
+        # cart = Cart(request)
 
         form = OrderCreateForm(request.POST)
 
@@ -57,10 +56,13 @@ class OrderCreateAjaxView(View):
 
             order.save()
 
-            for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
-
-            cart.clear()
+            # for item in cart:
+            #     order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            #     buybook = Buybook.objects.get(id=order_item.product_id)
+            #     buybook.bstock = buybook.bstock - order_item.quantity
+            #     buybook.save()
+            #
+            # cart.clear()
 
             data = {
                 "order_id": order.id
@@ -105,6 +107,16 @@ class OrderImpAjaxView(View):
         merchant_id = request.POST.get('merchant_id')
         imp_id = request.POST.get('imp_id')
         amount = request.POST.get('amount')
+        cart = Cart(request)
+
+        for item in cart:
+            order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'],
+                                                  quantity=item['quantity'])
+            buybook = Buybook.objects.get(id=order_item.product_id)
+            buybook.bstock = buybook.bstock - order_item.quantity
+            buybook.save()
+
+        cart.clear()
 
         try:
             trans = OrderTransaction.objects.get(

@@ -54,3 +54,7 @@ class Buybook(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:buybook_detail', args=[self.id, self.slug])
+
+    def get_total_price(self):
+        total_product = self.price
+        return total_product

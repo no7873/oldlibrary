@@ -21,10 +21,12 @@
     <header>
         <div id="logo">
             <div class="box">
+                <a href="{% url 'home:home' %}">
                 <div class="main_logo">
                     <img src="{% static 'images/oldlibrary.PNG' %}" style="vertical-align: middle;">
                     고서관
                 </div>
+                </a>
                 <form action="{% url 'search:searchResult' %}" method="get">
                     {% csrf_token %}
                     <div class="gum">
@@ -38,7 +40,7 @@
                         <ul>
                         <li><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></li>
                         <li><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></li>
-                        <li><a href="#" style="text-decoration: none; color: #85796e;">도서신청</a></li>
+                        <li><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></li>
 <!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
                         {% if user.is_authenticated %}
                         <li>
@@ -107,23 +109,23 @@
 <!--      </li>-->
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'rental:rentbook_all' %}">대여</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'shop:buybook_all' %}">구매</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://naver.me/G8UAlN8Q">도서신청</a>
-      </li>
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">{{user.nickname}}님</a>
-            </li>
-        {% else %}
-        {% endif %}
+<!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--    <ul class="navbar-nav mr-auto">-->
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" href="{% url 'rental:rentbook_all' %}">대여</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" href="{% url 'shop:buybook_all' %}">구매</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="http://naver.me/G8UAlN8Q">도서신청</a>-->
+<!--      </li>-->
+<!--        {% if user.is_authenticated %}-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#">{{user.nickname}}님</a>-->
+<!--            </li>-->
+<!--        {% else %}-->
+<!--        {% endif %}-->
 
 <!--      <li class="nav-item dropdown">-->
 <!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
@@ -139,18 +141,55 @@
 <!--      <li class="nav-item">-->
 <!--        <a class="nav-link disabled" href="#">Disabled</a>-->
 <!--      </li>-->
-    </ul>
-<!--    <form class="form-inline my-2 my-lg-0">-->
-<!--      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--    </form>-->
-  </div>
-</nav>
+<!--    </ul>-->
+<!--&lt;!&ndash;    <form class="form-inline my-2 my-lg-0">&ndash;&gt;-->
+<!--&lt;!&ndash;      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">&ndash;&gt;-->
+<!--&lt;!&ndash;      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--  </div>-->
+<!--</nav>-->
 
-<div class = "container">
+
+
     {% block content %}
     {% endblock %}
-</div>
+ <footer>
+        <div class="box">
+            <ul id="footer_menu">
+            <li>회사 약관</li>
+            <li> | </li>
+            <li>회사 약관</li>
+            <li> | </li>
+            <li>회사 약관</li>
+            <li> | </li>
+            <li>회사 약관</li>
+            </ul>
 
+            <div class="footers">
+                <h3>고서관</h3>
+                <ul>
+                <li>사업자 등록번호 12345</li>
+                <li>팀 에소모히또 | 한양여자대학교 스마트 IT과</li>
+                <li>전화 1234-1234 </li>
+                </ul>
+            </div>
+            <div class="footers">
+                <h3>고객센터</h3>
+                <ul>
+                <li>한양여자대학교 스마트 IT과 에소모히또</li>
+                <li>전화 1234-1234</li>
+                <li><span>1:1 문의 바로가기</span></li>
+                </ul>
+            </div>
+            <div class="footers">
+                <h3>전자금융거래 분쟁처리</h3>
+                <ul>
+                <li>전화 1234-1234</li>
+                <li><span>1:1 문의 바로가기</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
 </body>
 </html>

@@ -6,6 +6,7 @@
 {% endblock %}
 d
 {% block content %}
+<div class="container">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -78,5 +79,5 @@ d
         <a href="{% url 'shop:buybook_all' %}" class="btn btn-secondary">쇼핑 계속하기</a> <!--url 메인페이지로 다시 걸기-->
         <a href="{% url 'orders:order_create' %}" class="btn btn-primary">구매하기</a>
     </p>
-
+</div>
 {% endblock %}

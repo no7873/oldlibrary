@@ -21,9 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6jzsz7egut(x$1ubm=g^xxtc06ov_k+7e0u4ux&l2_850g(214'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -44,10 +41,10 @@ INSTALLED_APPS = [
     'shop',
     'django.contrib.sites',
     'cart',
-    'cart_rent',
     'order',
     'rental',
     'search',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +157,24 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL='accounts.User'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+
+import os, json
+from django.core.exceptions import ImproperlyConfigured
+
+
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
