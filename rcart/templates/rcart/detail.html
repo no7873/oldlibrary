@@ -16,7 +16,6 @@ d
             <th scope="col">구분</th>
             <th scope="col">삭제</th>
             <th scope="col">가격</th>
-            <th scope="col">상태</th>
         </tr>
         </thead>
         <tbody>
@@ -28,7 +27,7 @@ d
                     <img src="{{product.image.url}}" class="img-thumbnail" height="100px" width="100px">
                 </a>
             </th>
-            <td>{{product.btitle}}</td>
+            <td>{{product.rtitle}}</td>
             <td>
                 <form action="{% url 'rcart:product_add' product.id %}" method="post">
                     {{item.quantity_form.quantity}}
@@ -45,8 +44,7 @@ d
             <td>
                 <a href="{% url 'rcart:product_remove' product.id %}">삭제</a>
             </td>
-            <td class="num">-</td>
-            <td class="num">-</td>
+            <td class="num">0</td>
 
         </tr>
         {% endwith %}

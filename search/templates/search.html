@@ -15,7 +15,7 @@
                     <td><img src="{{product.rimage.url}}" alt="Product image" height="300px" width="200px"></td>
                     <td>{{product.rtitle}}</td>
                     <td>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary" style="width:200px">대여하기</a><br><br>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-secondary" style="width:200px">대여하기</a><br><br>
                         {% for buy in buy_products %}
                         {% if product.rtitle == buy.btitle and product.rpublisher == buy.bpublisher and product.rauthor == buy.bauthor %}
                         <a href="{{ buy.get_absolute_url }}" class="btn btn-primary" style="width:200px">구매하기</a>
