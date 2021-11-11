@@ -1,8 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
-from shop.models import Buybook
+from rental.models import Rentbook
 
-class Cart(object):
+class Rcart(object):
     def __init__(self, request): # 초기화, Django view에서 사용한 request로 그 안에 session 정보가 들어있음
         self.session = request.session
         cart = self.session.get(settings.CART_ID) # settings에 CART_ID를 만들어야함
@@ -16,7 +16,7 @@ class Cart(object):
     def __iter__(self): # for 문 등 사용할 때 어떤 요소들을 건네줄 것인지 지정
         product_ids = self.cart.keys() # 제품들 번호 목록을 가져옴
 
-        products = Buybook.objects.filter(id__in=product_ids) # 장바구니에 들어있는 제품들 정보만 Product database에서 가져옴
+        products = Rentbook.objects.filter(id__in=product_ids) # 장바구니에 들어있는 제품들 정보만 Product database에서 가져옴
 
         for product in products: # 제품들 정보 하나씩 읽어옴
             self.cart[str(product.id)]['product'] = product # session에 키 값들을 넣을때는 문자로 넣어줌

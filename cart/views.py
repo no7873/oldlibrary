@@ -26,6 +26,7 @@ def remove(request, product_id):
 
     return redirect('cart:detail')
 
+
 def detail(request):
     cart = Cart(request)
 
