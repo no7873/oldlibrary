@@ -1,4 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render
+
+from .forms import RegisterForm
 from .models import User
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -6,8 +9,10 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def signup(request):
+    register_form = RegisterForm(request.POST)
+    context = {'form':register_form}
     if request.method == 'POST':
-        if request.POST['password'] == request.POST['password2']:
+        if register_form.is_valid():
             user = User.objects.create_user(
                 username=request.POST['username'],
                 password=request.POST['password'],
@@ -19,7 +24,20 @@ def signup(request):
             )
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('/')
-        return render(request, 'registration/signup.html')
+        return render(request, 'registration/signup.html', context)
     else:
-        form = UserCreationForm
-        return render(request, 'registration/signup.html', {'form': form})
+        context['form'] = register_form
+        return render(request, 'registration/signup.html', context)
+
+def id_overlap_check(request):
+    username = request.GET.get('username')
+    try:
+        user=User.objects.get(username=username)
+    except:
+        user = None
+    if user is None:
+        overlap = 'pass'
+    else:
+        overlap = "fail"
+    context = {'overlap':overlap}
+    return JsonResponse(context)

@@ -15,6 +15,11 @@ def order_create(request):
             order = form.save()
             order.save()
 
+            total = cart.get_total_price / 100
+            user = request.user
+            user.point = user.point + total
+            user.save()
+
             return render(request, 'order/created.html', {'order':order})
 
     else:
@@ -55,6 +60,8 @@ class OrderCreateAjaxView(View):
             order = form.save(commit=False)
 
             order.save()
+
+
 
             # for item in cart:
             #     order_item = OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
@@ -115,6 +122,11 @@ class OrderImpAjaxView(View):
             buybook = Buybook.objects.get(id=order_item.product_id)
             buybook.bstock = buybook.bstock - order_item.quantity
             buybook.save()
+
+        total = cart.get_total_price / 100
+        user = request.user
+        user.point = user.point + total
+        user.save()
 
         cart.clear()
 

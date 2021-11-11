@@ -33,6 +33,33 @@
 <!--            {{ user.username }}-->
         </div>
     </div>
+
+</div>
+<div class="container">
+<h1>예약내역</h1>
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <th>예약번호</th>
+                <th>예약도서</th>
+                <th>예약일</th>
+                <th>예상대출가능일</th>
+                {% for reserve in reserves %}
+                <tr>
+                    <td>{{ reserve.id }}</td>
+                    {% for product in products %}
+                    <td><a href="{{ product.get_absolute_url }}">{{ reserve.rbook_id }}</a></td>
+                    {% endfor %}
+<!--                    <td>{{ reserve.rbook_id }}</td>-->
+                    <td>{{ reserve.apply }}</td>
+                    <td>{{ reserve.exp }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+<!--            {{ user.username }}-->
+        </div>
+    </div>
 </div>
 
 {% endblock %}

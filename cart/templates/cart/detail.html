@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
     myCart
@@ -45,7 +46,7 @@ d
             <td>
                 <a href="{% url 'cart:product_remove' product.id %}">삭제</a>
             </td>
-            <td class="num">${{item.price}}</td>
+            <td class="num">&#8361;{{item.price|floatformat:'0' | intcomma}}</td>
             <td class="num">{{product.condition}}</td>
 
         </tr>
@@ -65,11 +66,21 @@ d
 <!--            <td> -${{cart.get_discount_total|floatformat:"2"}}</td>-->
 <!--        </tr>-->
 <!--        {% endif %}-->
-
+        <tr>
+            <td>상품가격</td>
+            <td colspan="4"></td>
+            <td>&#8361;{{cart.get_product_total|floatformat:'0' | intcomma}}</td>
+        </tr>
+        <tr>
+            <td>배송비</td>
+            <td colspan="4"></td>
+            <td>&#8361;2,500</td>
+        </tr>
         <tr class="total">
             <td>총액</td>
             <td colspan="4"></td>
-            <td class="num">${{cart.get_total_price|floatformat:"2"}}</td>
+
+            <td class="num">&#8361;{{cart.get_total_price|floatformat:'0' | intcomma}}</td>
         </tr>
         </tbody>
     </table>
