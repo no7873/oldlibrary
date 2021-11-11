@@ -9,6 +9,7 @@
 <body>
 <div class="wrap">
     <div class="login">
+        <div class="position">
             <a href="{% url 'home:home' %}"><h2>고서관</h2></a>
     <form method="post" class="post-form" action="{% url 'login' %}">
         {% csrf_token %}
@@ -27,7 +28,7 @@
                     <div class="checkbox">
                     <input type="checkbox" name="" id=""> 아이디 저장
                     </div>
-                    <div class="col-4">
+                    <div class="new">
                     <span><a href="{% url 'signup' %}">회원가입</a></span>
                     </div>
                 </div>
@@ -38,6 +39,7 @@
 
     </div>
     </form>
+            </div>
     </div>
 </div>
 </body>
