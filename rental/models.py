@@ -56,9 +56,9 @@ class Rentbook(models.Model): #대여책 목록
         self.rstock = self.rstock - 1
         self.save()
 
-    def return_stock(self):
+    def return_stock(self, user):
         ## rtitle과 rbook_id가 같을 시 stock+1
-        if Rentbook.rtitle == Rental.rbook_id is True:
+        if Rental.rbook_id == Rentbook.rtitle:
             return self.rstock + 1
         self.rstock = self.rstock + 1
         self.save()
@@ -87,6 +87,7 @@ class Rental(models.Model):
 
     def __str__(self):
         return str(self.cust_num)
+
 
     def overdue(self):
         now = datetime.now().date()
