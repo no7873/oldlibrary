@@ -19,3 +19,4 @@ def buybook_detail(request, id, product_slug=None):
     product = get_object_or_404(Buybook, id=id, slug=product_slug)
     add_to_cart = AddProductForm(initial={'quantity' : 1})
     return render(request, 'shop/buy_detail.html', {'product': product, 'add_to_cart' : add_to_cart})
+

@@ -57,4 +57,4 @@ class Cart(object):
 
     @property
     def get_total_price(self):
-        return self.get_product_total()
+        return self.get_product_total() + 2500

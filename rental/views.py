@@ -104,9 +104,13 @@ def rental_history(request, pk):
     categories = Rentcategory.objects.all()
     user = User.objects.get(pk=pk)
     rentals = Rental.objects.filter(cust_num=user.id)
-    context = {'user':user, 'rentals': rentals, 'categories': categories}
-    return render(request, 'history/rental_history.html', context)
 
+    user = User.objects.get(pk=pk)
+    reserves = Reservation.objects.filter(cust_num=user.id)
+    book_id = reserves.values('rbook_id')
+    products = Rentbook.objects.filter(id__in=book_id)
+    context = {'user':user, 'rentals': rentals, 'reserves': reserves, 'categories': categories, 'products':products}
+    return render(request, 'history/rental_history.html', context)
 
 @login_required
 @require_POST
@@ -133,7 +137,6 @@ def rental(request, id):
 def rental_return(request, id, pk):
     rental = get_object_or_404(Rental, id=id)
     rentalid = Rental.objects.filter(id=id).values('rbook_id')
-    print(rental)
     user = User.objects.get(pk=pk)
 
     if request.method == 'GET':
