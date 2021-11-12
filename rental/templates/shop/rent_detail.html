@@ -20,7 +20,7 @@
             {% else %}
 <!--         if 대여-->
             {% if product.rstock > 0 %}
-            <form action="{% url 'rcart:product_add' product.id %}" method="post">
+            <form action="{% url 'rcart:rproduct_add' product.id %}" method="post">
                 {{add_to_cart}}
                 {% csrf_token %}
             <input type="submit" class="btn btn-primary btn-sm" value="대여 장바구니">

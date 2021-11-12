@@ -8,6 +8,9 @@
 d
 {% block content %}
 <div class="container">
+    {% if not cart %}
+    <h4>구매장바구니에 담긴 상품이 없습니다.</h4>
+    {% else %}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -92,5 +95,6 @@ d
         <a href="{% url 'shop:buybook_all' %}" class="btn btn-outline-success">쇼핑 계속하기</a> <!--url 메인페이지로 다시 걸기-->
         <a href="{% url 'orders:order_create' %}" class="btn btn-outline-danger">구매하기</a>
     </p>
+    {% endif %}
 </div>
 {% endblock %}
