@@ -34,7 +34,6 @@
             <p>예약인원수: {{ reserve_count.total }}명</p>
 <!--         대여예상날짜-->
 
-
             {% if user_count.total > 0 %}
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
@@ -55,6 +54,18 @@
                 {% csrf_token %}
                 <input type="submit" onclick="return confirm('예약하시겠습니까?');" class="btn btn-primary btn-sm" value="예약">
             </form>
+            {% endif %}
+
+            {% if product.rtotal == reserve_count.total %} <!---예약인원수가 총 권수와 같을 때-->
+            {% if rental_count.total <= reserve_count.total %}
+            <div class="row" style="margin:20px auto;">
+            <div class="col-sm-12">
+            <div class="alert alert-warning">
+            <strong>예약이 불가능합니다.</strong>
+            </div>
+            </div>
+            </div>
+            {% endif %}
             {% endif %}
             {% endif %}
             {% endif %}

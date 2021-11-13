@@ -20,9 +20,14 @@ d
         </tr>
         </thead>
         <tbody>
+<<<<<<< Updated upstream
 
         {% for cart_item in cart_items %}
         {% with product=cart_item.product %}
+=======
+        {% for item in rcart %}
+        {% with product=ritem.product %}
+>>>>>>> Stashed changes
         <tr>
             <th scope="row">
                 <a href="{{product.get_absolute_url}}">
@@ -31,23 +36,72 @@ d
             </th>
             <td>{{product.rtitle}}</td>
             <td>
+<<<<<<< Updated upstream
+=======
+                <form action="{% url 'rcart:product_add' product.id %}" method="post">
+                    {{item.quantity_form.quantity}}
+                    {{item.quantity_form.is_update}}
+                    <input type="submit" class="btn btn-dark" value="변경">
+                    {% csrf_token %}
+                </form>
+            </td>
+
+            <td>
+>>>>>>> Stashed changes
                 <a>대여</a>
             </td>
 
             <td>
                 <a href="{% url 'rcart:rproduct_remove' product.id %}">삭제</a>
             </td>
+<<<<<<< Updated upstream
+=======
+            <td class="num">&#8361;0</td>
+>>>>>>> Stashed changes
 
         </tr>
         {% endwith %}
         {% endfor %}
+<<<<<<< Updated upstream
+=======
+
+<!--        {% if cart.coupon %}-->
+<!--        <tr class="subtotal">-->
+<!--            <td>Subtotal</td>-->
+<!--            <td colspan="4"></td>-->
+<!--            <td>${{cart.get_product_total}}</td>-->
+<!--        </tr>-->
+
+<!--        <tr>-->
+<!--            <td>"{{cart.coupon.code}}" coupon (${{cart.coupon.amount}})</td>-->
+<!--            <td colspan="4"></td>-->
+<!--            <td> -${{cart.get_discount_total|floatformat:"2"}}</td>-->
+<!--        </tr>-->
+<!--        {% endif %}-->
+
+        <tr>
+            <td>배송비</td>
+            <td colspan="4"></td>
+            <td>&#8361;2,500</td>
+        </tr>
+        <tr class="total">
+            <td>총액</td>
+            <td colspan="4"></td>
+            <td class="num">&#8361;{{cart.get_total_price|floatformat:"2"}}</td>
+        </tr>
+>>>>>>> Stashed changes
         </tbody>
     </table>
 
 
     <p class="text-right">
+<<<<<<< Updated upstream
         <a href="{% url 'rental:rentbook_all' %}" class="btn btn-secondary">쇼핑 계속하기</a> <!--url 메인페이지로 다시 걸기-->
         <a href="{% url 'orders:order_create' %}" class="btn btn-primary">대여하기</a>
+=======
+        <a href="{% url 'rental:rentbook_all' %}" class="btn btn-outline-success">쇼핑 계속하기</a> <!--url 메인페이지로 다시 걸기-->
+        <a href="{% url 'orders:order_create' %}" class="btn btn-outline-danger">구매하기</a>
+>>>>>>> Stashed changes
     </p>
     {% endif %}
 </div>
