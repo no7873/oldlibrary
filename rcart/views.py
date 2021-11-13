@@ -48,28 +48,3 @@ def cart_remove(request, product_id):
     cart_item = CartItem.objects.get(product=product, cart=cart)
     cart_item.delete()
     return redirect('rcart:rdetail')
-
-
-<<<<<<< Updated upstream
-=======
-    if form.is_valid():
-        cd = form.cleaned_data
-        rcart.add(product=product, quantity=cd['quantity'], is_update=cd['is_update'])
-
-    return redirect('rcart:detail')
-
-def remove(request, product_id):
-    rcart = Rcart(request)
-    product = get_object_or_404(Rentbook, id=product_id)
-    rcart.remove(product)
-
-    return redirect('rcart:detail')
-
-
-def detail(request):
-    rcart = Rcart(request)
-
-    for product in rcart:
-        product['quantity_form'] = AddProductForm(initial={'quantity':product['quantity'], 'is_update':True})
-    return render(request, 'rcart/detail.html', {'rcart':rcart})
->>>>>>> Stashed changes

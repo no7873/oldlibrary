@@ -144,10 +144,10 @@ def rental_return(request, id, pk):
         book = get_object_or_404(Rentbook, id__in=rentalid)
         book.rstock += 1
         rental.rental_state = '반납완료'
+
+
     book.save()
     rental.save()
     # context={'user':user, 'rental':rental}
     # return HttpResponse(json.dumps(context), content_type="application/json")
     return render(request, 'history/return_finish.html', {'user':user, 'rental':rental})
-
-
