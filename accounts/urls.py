@@ -8,4 +8,5 @@ urlpatterns=[
     path('logout/', auth_view.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
     path('signup/check/', id_overlap_check, name='id_overlap_check'),
+    path('send_email/', views.send_email, name='send_email'),
 ]

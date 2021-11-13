@@ -41,3 +41,12 @@ def id_overlap_check(request):
         overlap = "fail"
     context = {'overlap':overlap}
     return JsonResponse(context)
+
+from django.core.mail.message import EmailMessage
+
+def send_email(request):
+    subject = "message"
+    to = ["jaeydream0516@gmail.com"]
+    from_email = "oldlibrary.official@gmail.com"
+    message = "예약한 도서를 대여할 수 있습니다."
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
