@@ -52,24 +52,31 @@ function findAddr(){
 <div class="container">
 <div class="row">
     <div class="col">
-        <div class="alert alert-info" role="alert">
-            Your Order
+        <div class="alert alert-light" role="alert">
+            주문정보
         </div>
-        <ul class="list-group">
-            {% for item in rcart_items %}
-            <li class="list-group-item">
-                {{item.product.rtitle}}
-            </li>
-            {% endfor %}
-            <span>배송비 2500원</span>
-<!--            {% for buy in product %}-->
-<!--            <li class="list-group-item">-->
-<!--                1X{{buy.btitle}}-->
-<!--                <span>{{buy.price}}</span>-->
-<!--            </li>-->
-<!--            {% endfor %}-->
-        </ul>
-        <div class="alert alert-success" role="alert">Total: 2500</div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>도서번호</th>
+                <th>도서정보</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for item in rcart_items %}
+                <td>{{item.product.id}}</td>
+                <td colspan="3">{{item.product.rtitle}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>배송비</td>
+                <td colspan="3">&#8361;2,500</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-warning" role="alert">총 결제금액: <strong>&#8361;2,500</strong></div>
 
         <form action="" method="post" class="order-form">
 <!--            {{form.as_p}}-->
@@ -97,9 +104,9 @@ function findAddr(){
                        value="{{ form.phone.value|default_if_none:'' }}">
             </div>
 
-            <input name="pre_order_id" value="0">
-            <input name="amount" value="2500">
-            <input type="submit" class="btn btn-primary float-right" value="Place Order">
+            <input type="hidden" name="pre_order_id" value="0">
+            <input type="hidden" name="amount" value="2500">
+            <input type="submit" class="btn btn-warning float-right" value="결제하기">
         </form>
     </div>
 </div>
