@@ -162,26 +162,35 @@ AUTH_USER_MODEL='accounts.User'
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 
+if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
+    secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-secret_file = os.path.join(BASE_DIR, 'secrets.json')
+    with open(secret_file) as f:
+        secrets = json.loads(f.read())
 
-with open("/home/nhj4166/old_library/secrets.json", "r") as f:
-    secrets = json.loads(f.read())
+    def get_secret(setting, secrets=secrets):
+        """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
+        try:
+            return secrets[setting]
+        except KeyError:
+            error_msg = "Set the {} environment variable".format(setting)
+            raise ImproperlyConfigured(error_msg)
 
-def get_secret(setting, secrets=secrets):
-    """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
+    SECRET_KEY = get_secret("SECRET_KEY")
 
-SECRET_KEY = get_secret("SECRET_KEY")
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+else:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
