@@ -37,30 +37,37 @@
                 </div>
                 </form>
                 <nav class="main_menu">
-                        <ul>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="row">
+                        <ul class="navbar-nav">
                         <li><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></li>
                         <li><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></li>
                         <li><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></li>
-<!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
+    <!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
                         {% if user.is_authenticated %}
                         <li>
-                        <a href="#">{{user.nickname}}님</a>
+                        <a style="text-decoration: none; color: #000000;">{{user.nickname}}님</a>
                         </li>
                             <li><a href="{% url 'logout' %}" style="text-decoration: none; color: #85796e;">로그아웃</a></li>
-                        <li>
-                        <a class="nav-link" href="{% url 'rental:rental_history' user.id %}" style="text-decoration: none; color: #85796e;">대여내역</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'rcart:rdetail' %}" style="text-decoration: none; color: #85796e;">대여 장바구니</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'cart:detail' %}" style="text-decoration: none; color: #85796e;">구매 장바구니</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #85796e;">
+                              대여/예약현황
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="{% url 'rental:rental_history' user.id %}">대여/예약내역</a>
+                              <a class="dropdown-item" href="{% url 'rcart:rdetail' %}">대여 장바구니</a>
+                              <a class="dropdown-item" href="{% url 'cart:detail' %}">구매 장바구니</a>
+
+                            </div>
                         </li>
                         {% else %}
                             <li><a href="{% url 'login' %}" style="text-decoration: none; color: #85796e;">로그인</a></li>
                             <li><a href="{% url 'signup' %}" style="text-decoration: none; color: #85796e;">회원가입</a></li>
                         {% endif %}
                         </ul>
+                    </div>
                 </nav>
             </div>
         </div> <!-- logo -->
@@ -77,11 +84,11 @@
             <ul id="footer_menu">
             <li>회사 약관</li>
             <li> | </li>
-            <li>회사 약관</li>
+            <li>개발자</li>
             <li> | </li>
-            <li>회사 약관</li>
+            <li>프로필</li>
             <li> | </li>
-            <li>회사 약관</li>
+            <li>비즈니스</li>
             </ul>
 
             <div class="footers">
@@ -89,7 +96,8 @@
                 <ul>
                 <li>사업자 등록번호 12345</li>
                 <li>팀 에소모히또 | 한양여자대학교 스마트 IT과</li>
-                <li>전화 1234-1234 </li>
+                <li>탁재영, 김지호, 노희주</li>
+                <li>CONTACT: 1234-1234</li>
                 </ul>
             </div>
             <div class="footers">
@@ -97,13 +105,16 @@
                 <ul>
                 <li>한양여자대학교 스마트 IT과 에소모히또</li>
                 <li>전화 1234-1234</li>
-                <li><span>1:1 문의 바로가기</span></li>
+                <li>멤버쉽 관련 문의</li>
+                <li><span>자주 묻는 질문</span></li>
                 </ul>
             </div>
             <div class="footers">
                 <h3>전자금융거래 분쟁처리</h3>
                 <ul>
-                <li>전화 1234-1234</li>
+                <li>이용관련 문의 및 불편사항: 1234-5678</li>
+                <li>이메일: old_library@hywoman.co.kr</li>
+                <li>개인정보 처리방침</li>
                 <li><span>1:1 문의 바로가기</span></li>
                 </ul>
             </div>

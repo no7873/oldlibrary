@@ -2,6 +2,7 @@
 {% block title %}Product Detail{% endblock %}
 {% block content %}
 
+
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -9,16 +10,19 @@
         </div>
         <div class="col">
             <h2 class="display-6">{{product.btitle}}</h2>
-            <p><span class="badge badge-secondary">가격</span>
+            <p style="color: darkblue">
             {% load humanize %}
                 &#8361;{{product.price | floatformat:'0' | intcomma}}</p>
             <form action="{% url 'cart:product_add' product.id %}" method="post">
                 {{add_to_cart}}
                 {% csrf_token %}
-            <input type="submit" class="btn btn-primary btn-sm" value="구매 장바구니">
-            </form>
-            <h6><span class="badge badge-secondary">줄거리</span>{{product.bcontent|linebreaks}}</h6>
-            <h5>상태 : {{product.condition}} </h5>
+            <input type="submit" class="btn btn-outline-danger btn-sm" value="구매 장바구니">
+            </form><br>
+            <div class="content" style="width:600px; margin-left:0px;">
+                <span class="badge badge-info">줄거리</span><p></p>
+                <h6 style="line-height: 1.5;">{{product.bcontent|linebreaks}}</h6>
+            </div>
+            <h5 style="color: #DB0000">상태 : {{product.condition}} </h5>
         </div>
     </div>
 </div>

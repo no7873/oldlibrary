@@ -6,17 +6,17 @@
 <div class="container">
     <div class="row">
     <div class="col-2"> <!--col-2 : 2조각-->
-        <div class="list-group">
-            <a href="/" class="list-group-item {% if not current_category%} active {% endif %}">카테고리</a>
+        <div class="list-group list-group-flush">
+            <a href="/shop/" class="list-group-item {% if not current_category%}{% endif %}list-group-item-action">전체</a>
             {%for c in categories %}
-            <a href="{{c.get_absolute_url}}" class="list-group-item {% if current_category.slug == c.slug %}active{% endif %}">{{c.name}}</a>
+            <a href="{{c.get_absolute_url}}" class="list-group-item {% if current_category.slug == c.slug %}{% endif %}list-group-item-action">{{c.name}}</a>
             {% endfor %}
         </div>
     </div>
 
     <div class="col">
-        <div class="alert alert-info" role="alert">
-            {% if current_category %}{{current_category.name}}{% else %} 구매도서 전체보기 {% endif %}
+        <div class="alert alert-light" role="alert">
+            {% if current_category %}{{current_category.name}}{% else %} <strong>구매도서 전체보기</strong> {% endif %}
         </div>
         <div class="row">
             {% for product in products %}
@@ -25,7 +25,9 @@
                     <img class="card-img-top" src="{{product.image.url}}" alt="Product image">
                     <div class="card-body">
                         <h5 class="card-title">{{product.btitle}}</h5>
-                        <p class="card-text">{{product.description}}<span class="badge badge-secondary">${{product.price}}</span></p>
+                        <p class="card-text">{{product.description}}
+                        <h4><span class="badge badge-light">{% load humanize %}&#8361;{{product.price | floatformat:'0' | intcomma}}</span></h4>
+                        </p>
                         <a href="{{product.get_absolute_url}}" class="btn btn-primary">상세보기</a>
                     </div>
                 </div>

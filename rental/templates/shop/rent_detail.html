@@ -17,25 +17,8 @@
             </div>
             </div>
             </div>
-            {% else %}
-<!--         if 대여-->
-            {% if product.rstock > 0 %}
-            <form action="{% url 'rcart:rproduct_add' product.id %}" method="post">
-                {{add_to_cart}}
-                {% csrf_token %}
-            <input type="submit" class="btn btn-primary btn-sm" value="대여 장바구니">
-            </form>
-            <form action="{% url 'rental:rental' product.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-primary btn-sm" value="바로대여">
-            </form>
-    <!--         else 예약-->
-            {% else %}
-            <p>예약인원수: {{ reserve_count.total }}명</p>
-<!--         대여예상날짜-->
-
-
-            {% if user_count.total > 0 %}
+            {% else %}<!--이미 책 대여한 고객 로직 끝-->
+            {% if user_count.total > 0 %} <!--이미 책을 예약한 고객 -->
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
             <div class="alert alert-danger">
@@ -43,21 +26,45 @@
             </div>
             </div>
             </div>
-            {% else %}
-            {% if rental_count.total > reserve_count.total %}
-            {% for rtd in rental_date %}
-            <p>예상대여예정일: {{ rtd.delta|date:'Y년 m월 d일' }}</p>
-            {% endfor %}
-            {% else %}
-            <p>예상대여예정일: {{ reserve_date.delta|date:'Y년 m월 d일' }}</p>
-            {% endif %}
-            <form action="{% url 'rental:reserve' product.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" onclick="return confirm('예약하시겠습니까?');" class="btn btn-primary btn-sm" value="예약">
-            </form>
-            {% endif %}
-            {% endif %}
-            {% endif %}
+            {% else%}<!--이미 책 예약한 고객 로직 끝-->
+<!--         if 대여-->
+            {% if product.rstock > 0 %} <!--책을 대여하지 않았고 재고가 있을 때-->
+<!--            예약자가 있을 때 메일 보내주는 로직 작성하기!!!!!!-->
+                {% if reserve_count.total == 0 %} <!--예약자가 없을 때(대여가능)-->
+                <form action="{% url 'rcart:rproduct_add' product.id %}" method="post">
+                    {{add_to_cart}}
+                    {% csrf_token %}
+                <input type="submit" class="btn btn-outline-danger btn-sm" value="대여 장바구니">
+                </form>
+                <form action="{% url 'rental:rental' product.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-sm" value="바로대여">
+                </form>
+                {% endif %} <!--예약자 없을 때의 로직 끝-->
+
+    <!--         else 예약-->
+            {% else %} <!--재고가 없을 때(예약 받아야 하는 상황)-->
+                {% if product.rtotal == reserve_count.total %} <!--예약 안 했고 총 권수=예약인원이면 예약 불가능-->
+                <div class="row" style="margin:20px auto;">
+                <div class="col-sm-12">
+                <div class="alert alert-warning">
+                <strong>예약이 불가능합니다.</strong>
+                </div>
+                </div>
+                </div>
+                {% else %}<!--총 권수>예약인원이면 예약 가능-->
+                {% for rtd in rental_date %}
+                <p>예약인원수: {{ reserve_count.total }}명</p>
+                <p>예상대여예정일: {{ rtd.delta|date:'Y년 m월 d일' }}</p>
+                <form action="{% url 'rental:reserve' product.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" onclick="return confirm('예약하시겠습니까?');" class="btn btn-primary btn-sm" value="예약">
+                </form>
+                {% endfor %}
+                {% endif %} <!--총 권수와 예약인원 비교로직 끝-->
+            {% endif %}<!--책 대여하지 않았고 재고 없을 때 로직 끝-->
+            {% endif %}<!---->
+            {% endif %}<!---->
         </div>
     </div>
 </div>
