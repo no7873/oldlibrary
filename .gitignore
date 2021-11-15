@@ -155,8 +155,9 @@ cython_debug/
 migrations/
 media/
 
-/*.gitignore*/
-venv
 *.pyc
-staticfiles
-.env
+*~
+/venv
+__pychache__
+db.sqlite3
+.DS_Store
