@@ -6,11 +6,14 @@
 {% endblock %}
 d
 {% block content %}
-<div class="container">
-    {% if not cart_items %}
-    <p style="text-align:center;">대여장바구니에 담긴 상품이 없습니다.</p>
-
+{% if not cart_items %}
+    <div class="exclam"><img src="{% static 'images/exclamation.PNG' %}"></div>
+    <div id="contents">
+        <strong>대여장바구니에 담긴 상품이 없습니다.</strong>
+    </div>
     {% else %}
+<div class="container">
+
     <table class="table table-striped">
         <thead>
         <tr>

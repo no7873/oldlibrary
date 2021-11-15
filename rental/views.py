@@ -40,7 +40,7 @@ def rentbook_detail(request, id, product_slug=None):
     rental_count = Rental.objects.filter(rbook_id=id).values('rbook_id').aggregate(total=Coalesce(Count('rbook_id'), 0))
     if user.is_authenticated:
         global user_count, rental_date, reserve_date
-        user_count = Reservation.objects.filter(cust_num=user).values('cust_num').aggregate(
+        user_count = Reservation.objects.filter(cust_num=user, rbook_id=id).values('cust_num').aggregate(
             total=Coalesce(Count('cust_num'), 0))
         rental_user = Rental.objects.filter(cust_num=user, rbook_id=id).values('cust_num').aggregate(total=Coalesce(Count('cust_num'), 0))
         rental_state = Rental.objects.filter(cust_num=user, rbook_id=id).values('rental_state').first()
@@ -53,12 +53,13 @@ def rentbook_detail(request, id, product_slug=None):
             delta=ExpressionWrapper(F('due') + timedelta(days=1), output_field=DateField()))
         reserve_date = Reservation.objects.filter(rbook_id=id).order_by('exp').annotate(
             delta=ExpressionWrapper(F('exp') + timedelta(days=15), output_field=DateField())).values()
+        reserve_rental = Reservation.objects.filter(rbook_id=id).order_by('apply').first()
         if rtc > rc:  # 대여 인원수가 예약 인원수 보다 많은 경우
             rental_date = rental_date[rc:rcp]
 
         else:  # 예약 인원수가 대여 인원수 보다 많은 경우
             reserve_date = reserve_date.last()
-        return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date, 'user_count':user_count, 'rental_user':rental_user, 'rental_state':rental_state })
+        return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date, 'user_count':user_count, 'rental_user':rental_user, 'rental_state':rental_state, 'reserve_rental':reserve_rental })
     else:
         return render(request, 'shop/rent_detail.html', {'product':product, 'reserve_count':reserve_count, 'rental_count':rental_count, 'rental_date':rental_date, 'reserve_date':reserve_date })
 
