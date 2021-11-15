@@ -9,6 +9,7 @@
         <div class="col">
             <h1 class="display-6">{{product.rtitle}}</h1>
             <p>{{product.rstock}}/{{product.rtotal}}</p>
+<!--         if 대여-->
             {% if rental_state.rental_state == '대여중' %} <!-- rental_user.total > 0 and -->
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
@@ -17,8 +18,9 @@
             </div>
             </div>
             </div>
-            {% else %}<!--이미 책 대여한 고객 로직 끝-->
-            {% if user_count.total > 0 %} <!--이미 책을 예약한 고객 -->
+            {% else %}<!--이미 책 대여한 고객 로직 끝, 대여하지 않은 고객들 대상으로-->
+
+            {% if  %} <!--이미 책을 예약한 고객 user_count.total > 0-->
             <div class="row" style="margin:20px auto;">
             <div class="col-sm-12">
             <div class="alert alert-danger">
@@ -26,11 +28,11 @@
             </div>
             </div>
             </div>
-            {% else%}<!--이미 책 예약한 고객 로직 끝-->
-<!--         if 대여-->
-            {% if product.rstock > 0 %} <!--책을 대여하지 않았고 재고가 있을 때-->
-<!--            예약자가 있을 때 메일 보내주는 로직 작성하기!!!!!!-->
-                {% if reserve_count.total == 0 %} <!--예약자가 없을 때(대여가능)-->
+
+            {% else %}<!--이미 책 예약한 고객 로직 끝, 대여도 예약도 하지 않은 고객들 대상으로-->
+            {% if product.rstock > 0 %} <!--책을 대여/예약하지 않았고 재고가 있을 때-->
+<!--            재고 있고 예약자가 있을 때 메일 보내주는 로직 작성하기!!!!!!-->
+                {% if reserve_count.total == 0 %} <!--재고 있고 예약자가 없을 때(대여가능)-->
                 <form action="{% url 'rcart:rproduct_add' product.id %}" method="post">
                     {{add_to_cart}}
                     {% csrf_token %}
@@ -39,12 +41,12 @@
                 {% endif %} <!--예약자 없을 때의 로직 끝-->
 
     <!--         else 예약-->
-            {% else %} <!--재고가 없을 때(예약 받아야 하는 상황)-->
+            {% else %} <!--대여,예약하지 않았고 재고가 없을 때(예약 받아야 하는 상황)-->
                 {% if product.rtotal == reserve_count.total %} <!--예약 안 했고 총 권수=예약인원이면 예약 불가능-->
                 <div class="row" style="margin:20px auto;">
                 <div class="col-sm-12">
                 <div class="alert alert-warning">
-                <strong>예약이 불가능합니다.</strong>
+                <strong>현재 예약이 불가능한 도서입니다.</strong>
                 </div>
                 </div>
                 </div>
@@ -59,8 +61,8 @@
                 {% endfor %}
                 {% endif %} <!--총 권수와 예약인원 비교로직 끝-->
             {% endif %}<!--책 대여하지 않았고 재고 없을 때 로직 끝-->
-            {% endif %}<!---->
-            {% endif %}<!---->
+            {% endif %}<!--책 대여 로직 끝-->
+            {% endif %}
         </div>
     </div>
 </div>
