@@ -36,12 +36,16 @@
                     <button type='submit' class='sch_smit' value="Search">검색</button>
                 </div>
                 </form>
-                <nav class="main_menu">
+            </div>
+        </div> <!-- logo -->
+    </header>
+
+ <nav class="main_menu">
                     <div class="row">
                         <ul class="navbar-nav">
-                        <li><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></li>
-                        <li><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></li>
-                        <li><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></li>
+                        <p><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></p>
+                        <p><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></p>
+                        <p><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></p>
     <!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
                         {% if user.is_authenticated %}
                         <li>
@@ -66,11 +70,6 @@
                         </ul>
                     </div>
                 </nav>
-            </div>
-        </div> <!-- logo -->
-    </header>
-
-
 
 
 

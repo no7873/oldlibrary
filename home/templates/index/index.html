@@ -1,13 +1,80 @@
 
 <!--<!DOCTYPE html>-->
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}홈{% endblock %}
+<!DOCTYPE html>
+{% block title %}{% endblock %}
 {% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>고서관</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <div class="box">
+                <a href="{% url 'home:home' %}">
+                <div class="main_logo">
+                    <img src="{% static 'images/oldlibrary.PNG' %}" style="vertical-align: middle;">
+                    고서관
+                </div>
+                </a>
+                <form action="{% url 'search:searchResult' %}" method="get">
+                    {% csrf_token %}
+                    <div class="gum">
+                    <div class='search'>
+                    <input type='search' class='input_text' name="q">
+                    </div>
+                    <button type='submit' class='sch_smit' value="Search">검색</button>
+                </div>
+                </form>
+            </div>
+        </div> <!-- logo -->
+    </header>
+
+
 
 <div class="clear"></div>
     <section id="content_box">
-        <div class="box2"><img src="{% static 'images/oldbook_poster.PNG' %}"></div>
+        <div class="box2"><img src="{% static 'images/oldbook_poster.PNG' %}">
+         <nav class="main_menu">
+                    <div class="row">
+                        <ul class="navbar-nav">
+                        <p><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></p>
+                        <p><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></p>
+                        <p><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></p>
+    <!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
+                        {% if user.is_authenticated %}
+                        <li>
+                        <a style="text-decoration: none; color: #000000;">{{user.nickname}}님</a>
+                        </li>
+                            <li><a href="{% url 'logout' %}" style="text-decoration: none; color: #85796e;">로그아웃</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #85796e;">
+                              대여/예약현황
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="{% url 'rental:rental_history' user.id %}">대여/예약내역</a>
+                              <a class="dropdown-item" href="{% url 'rcart:rdetail' %}">대여 장바구니</a>
+                              <a class="dropdown-item" href="{% url 'cart:detail' %}">구매 장바구니</a>
+
+                            </div>
+                        </li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}" style="text-decoration: none; color: #85796e;">로그인</a></li>
+                            <li><a href="{% url 'signup' %}" style="text-decoration: none; color: #85796e;">회원가입</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </nav></div>
+
         <div class="box4">
             <div class="notice">
             <img src="{% static 'images/box1.PNG' %}">
@@ -32,6 +99,51 @@
 
         <div class="clear"></div>
     </section>
+
+ <footer>
+        <div class="box">
+            <ul id="footer_menu">
+            <li>회사 약관</li>
+            <li> | </li>
+            <li>개발자</li>
+            <li> | </li>
+            <li>프로필</li>
+            <li> | </li>
+            <li>비즈니스</li>
+            </ul>
+
+            <div class="footers">
+                <h3>고서관</h3>
+                <ul>
+                <li>사업자 등록번호 12345</li>
+                <li>팀 에소모히또 | 한양여자대학교 스마트 IT과</li>
+                <li>탁재영, 김지호, 노희주</li>
+                <li>CONTACT: 1234-1234</li>
+                </ul>
+            </div>
+            <div class="footers">
+                <h3>고객센터</h3>
+                <ul>
+                <li>한양여자대학교 스마트 IT과 에소모히또</li>
+                <li>전화 1234-1234</li>
+                <li>멤버쉽 관련 문의</li>
+                <li><span>자주 묻는 질문</span></li>
+                </ul>
+            </div>
+            <div class="footers">
+                <h3>전자금융거래 분쟁처리</h3>
+                <ul>
+                <li>이용관련 문의 및 불편사항: 1234-5678</li>
+                <li>이메일: old_library@hywoman.co.kr</li>
+                <li>개인정보 처리방침</li>
+                <li><span>1:1 문의 바로가기</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+</body>
+</html>
 
 {% endblock %}
 <!--</body>-->
