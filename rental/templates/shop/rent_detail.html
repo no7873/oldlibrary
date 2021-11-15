@@ -36,10 +36,6 @@
                     {% csrf_token %}
                 <input type="submit" class="btn btn-outline-danger btn-sm" value="대여 장바구니">
                 </form>
-                <form action="{% url 'rental:rental' product.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-primary btn-sm" value="바로대여">
-                </form>
                 {% endif %} <!--예약자 없을 때의 로직 끝-->
 
     <!--         else 예약-->
