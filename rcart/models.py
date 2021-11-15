@@ -25,5 +25,5 @@ class CartItem(models.Model):
         return 2500
 
     def __str__(self):
-        return self.product
+        return str(self.product)
 

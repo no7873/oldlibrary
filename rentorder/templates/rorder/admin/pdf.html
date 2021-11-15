@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load humanize %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body><h1>고서관(대여)</h1>
+<p>
+주문번호 {{order.id}} </br>
+<span class="secondary">{{order.created|date:"M d, Y"}}</span>
+</p>
+<h3>{% if order.paid %}배송정보 {% else %}Pending payment {% endif %}</h3>
+<p>
+{{order.name}}<br>
+{{order.email}}<br>
+{{order.address}}<br>
+    {{order.detailadd}}<br>
+</p>
+<h3>상품</h3>
+<table>
+<thead>
+<tr>
+<th>Product ID</th>
+<th>Product</th>
+</tr>
+</thead>
+<tbody>
+{% for item in order.items.all %}
+<tr class="row{% cycle "1" "2" %}">
+<td>{{item.product.id}}</td>
+<td>{{item.product.rtitle}}</td>
+
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>

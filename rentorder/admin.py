@@ -32,26 +32,26 @@ export_to_csv.short_description = 'Export to CSV'
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-def order_detail(obj):
-    return mark_safe('<a href="{}">Detail</a>'.format(reverse('orders:admin_order_detail', args=[obj.id])))
+def rent_detail(obj):
+    return mark_safe('<a href="{}">Detail</a>'.format(reverse('rentorders:admin_rent_detail', args=[obj.id])))
 
-order_detail.short_description = 'Detail'
+rent_detail.short_description = 'Detail'
 
-def order_pdf(obj):
-    return mark_safe('<a href="{}">PDF</a>'.format(reverse('orders:admin_order_pdf', args=[obj.id])))
+def rent_pdf(obj):
+    return mark_safe('<a href="{}">PDF</a>'.format(reverse('rentorders:admin_rent_pdf', args=[obj.id])))
 
-order_pdf.short_description = 'PDF'
+rent_pdf.short_description = 'PDF'
 
-from .models import OrderItem, Order
+from .models import RentItem, Rent
 
-class OrderItemInline(admin.TabularInline):
-    model = OrderItem
+class RentItemInline(admin.TabularInline):
+    model = RentItem
     raw_id_fields = ['product']
 
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'email', 'address', 'detailadd', 'phone', 'paid', order_detail, order_pdf, 'created', 'updated']
+class RentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'email', 'address', 'detailadd', 'phone', 'paid', rent_detail, rent_pdf, 'created', 'updated']
     list_filter = ['paid', 'created', 'updated']
-    inlines = [OrderItemInline]
+    inlines = [RentItemInline]
     actions = [export_to_csv]
 
-admin.site.register(Order, OrderAdmin)
+admin.site.register(Rent, RentAdmin)
