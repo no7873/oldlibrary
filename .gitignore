@@ -154,3 +154,10 @@ cython_debug/
 .idea/
 migrations/
 media/
+
+*.pyc
+*~
+/venv
+__pychache__
+db.sqlite3
+.DS_Store

@@ -41,38 +41,35 @@
     </header>
 
  <nav class="main_menu">
-                    <div class="row">
-                        <ul class="navbar-nav">
-                        <p><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></p>
-                        <p><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></p>
-                        <p><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></p>
-    <!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
-                        {% if user.is_authenticated %}
-                        <li>
-                        <a style="text-decoration: none; color: #000000;">{{user.nickname}}님</a>
-                        </li>
-                            <li><a href="{% url 'logout' %}" style="text-decoration: none; color: #85796e;">로그아웃</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #85796e;">
-                              대여/예약현황
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                              <a class="dropdown-item" href="{% url 'rental:rental_history' user.id %}">대여/예약내역</a>
-                              <a class="dropdown-item" href="{% url 'rcart:rdetail' %}">대여 장바구니</a>
-                              <a class="dropdown-item" href="{% url 'cart:detail' %}">구매 장바구니</a>
+    <div class="row">
+        <ul class="navbar-nav">
+        <p><a href="{% url 'rental:rentbook_all' %}" style="text-decoration: none; color: #85796e;">대여</a></p>
+        <p><a href="{% url 'shop:buybook_all' %}" style="text-decoration: none; color: #85796e;">구매</a></p>
+        <p><a href=http://naver.me/G8UAlN8Q style="text-decoration: none; color: #85796e;">도서신청</a></p>
+<!--                        <li><a href="#" style="text-decoration: none; color: #85796e;">로그인</a></li>-->
+        {% if user.is_authenticated %}
+        <li>
+        <a style="text-decoration: none; color: #000000;">{{user.nickname}}님</a>
+        </li>
+            <li><a href="{% url 'logout' %}" style="text-decoration: none; color: #85796e;">로그아웃</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #85796e;">
+              대여/예약현황
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'rental:rental_history' user.id %}">대여/예약내역</a>
+              <a class="dropdown-item" href="{% url 'rcart:rdetail' %}">대여 장바구니</a>
+              <a class="dropdown-item" href="{% url 'cart:detail' %}">구매 장바구니</a>
 
-                            </div>
-                        </li>
-                        {% else %}
-                            <li><a href="{% url 'login' %}" style="text-decoration: none; color: #85796e;">로그인</a></li>
-                            <li><a href="{% url 'signup' %}" style="text-decoration: none; color: #85796e;">회원가입</a></li>
-                        {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-
-
-
+            </div>
+        </li>
+        {% else %}
+            <li><a href="{% url 'login' %}" style="text-decoration: none; color: #85796e;">로그인</a></li>
+            <li><a href="{% url 'signup' %}" style="text-decoration: none; color: #85796e;">회원가입</a></li>
+        {% endif %}
+        </ul>
+    </div>
+</nav>
     {% block content %}
     {% endblock %}
  <footer>
