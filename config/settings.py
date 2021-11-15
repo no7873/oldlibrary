@@ -167,7 +167,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-with open(secret_file) as f:
+with open("/home/oldlibrary/old_library/secret.json","r") as f:
     secrets = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
