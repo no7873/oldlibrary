@@ -60,6 +60,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -94,10 +96,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nhj4166$oldlibrary',
-        'USER' : 'nhj4166',
-        'PASSWORD' : 'hj416673jk@',
-        'HOST' : 'nhj4166.mysql.pythonanywhere-services.com',
+        'NAME': 'heroku_0b94d1871694b08',
+        'USER' : 'b89015d4e4cd1f',
+        'PASSWORD' : 'aac12b56',
+        'HOST' : 'us-cdbr-east-04.cleardb.com',
         'PORT' : '3306',
         'OPTIONS' : {
             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'",
@@ -209,14 +211,14 @@ if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
     AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 else:
-    SECRET_KEY = os.getenv("SECRET_KEY")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = "smtp.gmail.com"
-    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+    EMAIL_HOST_USER =  os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD =  os.environ.get("EMAIL_HOST_PASSWORD")
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
