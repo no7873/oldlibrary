@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'search',
     'home',
     'rentorder',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -93,14 +94,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library',
-        'USER' : 'root',
-        'PASSWORD' : 'root',
-        'HOST' : 'localhost',
+        'NAME': 'heroku_0b94d1871694b08',
+        'USER' : 'b89015d4e4cd1f',
+        'PASSWORD' : 'aac12b56',
+        'HOST' : 'us-cdbr-east-04.cleardb.com',
         'PORT' : '3306',
-        'OPTIONS' : {
-            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'",
-        },
+        # 'OPTIONS' : {
+        #     'init_command' : "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'",
+        # },
 
     }
 }
@@ -143,7 +144,23 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'oldlibrary-gsg'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_S3_FILE_OVERWRITE = False # 같은 이름 파일이 있는 경우 덮어 쓸지 설정
+# 파일 받아갔을 때 cache를 얼마나 유지할 것인지 설정
+AWS_S3_OBJECT_PARAMETERS = {
+'CacheControl': 'max-age=86400',
+}
+AWS_DEFAULT_ACL = 'public-read' # 이렇게 설정하지 않으면 외부 접근이 안되서 못보는 경우가 생
+AWS_LOCATION = 'static'
+
+STATIC_URL = 'http://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
+
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT=BASE_DIR/ 'static_files'
 
@@ -189,6 +206,9 @@ if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+    AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
