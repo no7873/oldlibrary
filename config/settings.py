@@ -37,7 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'accounts.apps.AccountsConfig',
+    'shop',
     'django.contrib.sites',
+    'cart',
+    'rcart',
+    'order',
+    'rental',
+    'search',
+    'home',
+    'rentorder',
+    'storages',
 ]
 
 MIDDLEWARE = [
