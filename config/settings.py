@@ -99,9 +99,9 @@ DATABASES = {
         'PASSWORD' : 'aac12b56',
         'HOST' : 'us-cdbr-east-04.cleardb.com',
         'PORT' : '3306',
-        # 'OPTIONS' : {
-        #     'init_command' : "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'",
-        # },
+        'OPTIONS' : {
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO'",
+        },
 
     }
 }
