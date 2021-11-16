@@ -206,7 +206,7 @@ AUTH_USER_MODEL='accounts.User'
 #     AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
 #     AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 # else:
-SECRET_KEY = '6jzsz7egutrxh1ubm4g1sltc06ov9kf7e0u4uxrl2v850gp214'
+SECRET_KEY = '6jzsz7egut(x$1ubm=g^sltc06ov_k+7e0u4ux&l2_850g(214'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = 'oldlibrary.official@gmail.com'
