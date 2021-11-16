@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nhj4166$library',
+        'NAME': 'nhj4166$oldlibrary',
         'USER' : 'nhj4166',
         'PASSWORD' : 'hj416673jk@',
         'HOST' : 'nhj4166.mysql.pythonanywhere-services.com',
