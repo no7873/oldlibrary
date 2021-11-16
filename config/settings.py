@@ -176,44 +176,44 @@ AUTH_USER_MODEL='accounts.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# import os, json
-# from django.core.exceptions import ImproperlyConfigured
-#
-# if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
-#     secret_file = os.path.join(BASE_DIR, 'secrets.json')
-#
-#     with open(secret_file) as f:
-#         secrets = json.loads(f.read())
-#
-#     def get_secret(setting, secrets=secrets):
-#         """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
-#         try:
-#             return secrets[setting]
-#         except KeyError:
-#             error_msg = "Set the {} environment variable".format(setting)
-#             raise ImproperlyConfigured(error_msg)
-#
-#     SECRET_KEY = get_secret("SECRET_KEY")
-#
-#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#     EMAIL_HOST = "smtp.gmail.com"
-#     EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
-#     EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
-#     EMAIL_PORT = 587
-#     EMAIL_USE_TLS = True
-#     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-#
-#     AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
-#     AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
-# else:
-SECRET_KEY = '6jzsz7egut(x$1ubm=g^sltc06ov_k+7e0u4ux&l2_850g(214'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = 'oldlibrary.official@gmail.com'
-EMAIL_HOST_PASSWORD = 'dnrjgpqrzfssczfu'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
-AWS_ACCESS_KEY_ID = 'AKIAQHGU6V3PXMCS4TBM'
-AWS_SECRET_ACCESS_KEY = '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'
+if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
+    secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+    with open(secret_file) as f:
+        secrets = json.loads(f.read())
+
+    def get_secret(setting, secrets=secrets):
+        """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
+        try:
+            return secrets[setting]
+        except KeyError:
+            error_msg = "Set the {} environment variable".format(setting)
+            raise ImproperlyConfigured(error_msg)
+
+    SECRET_KEY = get_secret("SECRET_KEY")
+
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+    AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
