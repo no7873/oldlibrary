@@ -1,1 +1,1 @@
-web: gunicorn old_library.wsgi --log-file -
+web: gunicorn oldlibrary.wsgi --log-file -
