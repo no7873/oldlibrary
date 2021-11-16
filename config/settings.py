@@ -60,8 +60,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
