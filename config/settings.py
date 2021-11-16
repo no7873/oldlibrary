@@ -94,9 +94,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_0b94d1871694b08',
-        'USER' : 'b89015d4e4cd1f',
-        'PASSWORD' : 'aac12b56',
+        'NAME': 'heroku_fb1e6c2edf9278e',
+        'USER' : 'b8a8bdf0b497f0',
+        'PASSWORD' : 'f9125a3e',
         'HOST' : 'us-cdbr-east-04.cleardb.com',
         'PORT' : '3306',
     }
