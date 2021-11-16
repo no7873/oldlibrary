@@ -176,9 +176,9 @@ AUTH_USER_MODEL='accounts.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-import os, json
-from django.core.exceptions import ImproperlyConfigured
-
+# import os, json
+# from django.core.exceptions import ImproperlyConfigured
+#
 # if os.path.isfile(os.path.join(BASE_DIR, 'secrets.json')) == True:
 #     secret_file = os.path.join(BASE_DIR, 'secrets.json')
 #
@@ -206,14 +206,14 @@ from django.core.exceptions import ImproperlyConfigured
 #     AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
 #     AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 # else:
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = '6jzsz7egutrxh1ubm4g1sltc06ov9kf7e0u4uxrl2v850gp214'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = 'oldlibrary.official@gmail.com'
+EMAIL_HOST_PASSWORD = 'dnrjgpqrzfssczfu'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = 'AKIAQHGU6V3PXMCS4TBM'
+AWS_SECRET_ACCESS_KEY = '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'
